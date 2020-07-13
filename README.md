@@ -78,7 +78,7 @@ is to specifically specify the location of the build tool for AmpGen's JIT:
 In order to build stand-alone on LXPLUS, you will need a valid development environment; the following line will work:
 
 ```shell
-source /cvmfs/sft.cern.ch/lcg/views/setupViews.sh LCG_94python3 x86_64-centos7-gcc8-opt
+source /cvmfs/sft.cern.ch/lcg/views/setupViews.sh LCG_97python3 x86_64-centos7-gcc8-opt
 ```
 The LCG versions and CMTCONFIG may need to be updated over time. 
 The ROOT versions installed on cvmfs generally require C++17 support when building, i.e. when running cmake add the option `-DCMAKE_CXX_STANDARD=17`.
