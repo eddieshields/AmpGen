@@ -21,6 +21,7 @@
 #include "AmpGen/Utilities.h"
 #include "AmpGen/EventType.h"
 #include "AmpGen/CoherentSum.h"
+#include "AmpGen/Mixing.h"
 #include "AmpGen/Generator.h"
 #include "AmpGen/MinuitParameterSet.h"
 #include "AmpGen/NamedParameter.h"
@@ -77,6 +78,7 @@ int main( int argc, char** argv )
   std::string outfile = NamedParameter<std::string>("Output"   , "Generate_Output.root" , "Name of output file" ); 
   auto genType        = NamedParameter<generatorType>( "Type", generatorType::CoherentSum, optionalHelpString("Generator configuration to use:", 
     { {"CoherentSum"     , "Full phase-space generator with (pseudo)scalar amplitude"}
+    , {"Mixing"          , "Full phase-space generator with (pseudo)scalar amplitude and mixing"}
     , {"PolarisedSum"    , "Full phase-space generator with particles carrying spin in the initial/final states"}
     , {"FixedLib"        , "Full phase-space generator with an amplitude from a precompiled library"}
     , {"RGenerator"      , "Recursive phase-space generator for intermediate (quasi)stable states such as the D-mesons"}
@@ -154,6 +156,11 @@ int main( int argc, char** argv )
     FixedLibPDF pdf( lib );
     signalGenerator.fillEventList( pdf, accepted, nEvents );
   } 
+  else if ( genType == generatorType::Mixing ) {
+    Mixing sig( eventType, MPS);
+    PhaseSpace phsp(eventType,&rand);
+    GenerateEvents( accepted, sig, phsp , nEvents, blockSize, &rand );
+  }
   else {
     FATAL("Did not recognise configuration: " << genType );
   }
