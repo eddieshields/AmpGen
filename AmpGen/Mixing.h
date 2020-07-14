@@ -4,23 +4,22 @@
 #include <stddef.h>
 #include <complex>
 
-
+#include "AmpGen/CoherentSum.h"
 #include "AmpGen/Event.h"
 #include "AmpGen/EventList.h"
+#include "AmpGen/EventType.h"
 #include "AmpGen/Types.h"
+#include "AmpGen/MinuitParameterSet.h"
+
 
 namespace AmpGen
 {
-  template<class PDF_DIR, class PDF_CNJ> 
   class Mixing
   {
   public:
     Mixing();
-    Mixing( PDF_DIR& pdf_dir, PDF_CNJ& pdf_cnj )
-    {
-      _pdf_dir = pdf_dir;
-      _pdf_cnj = pdf_cnj;
-    };
+    Mixing( const EventType& type, const AmpGen::MinuitParameterSet& mps );
+
     ~Mixing() {};
 
     complex_t gp( const real_t& t ) const;
@@ -38,9 +37,10 @@ namespace AmpGen
     void reset( bool resetEvents = false );
     void setEvents( EventList& list );
 
+
   private:
-  PDF_DIR _pdf_dir;
-  PDF_CNJ _pdf_cnj;
+  CoherentSum pdf_dir;
+  CoherentSum pdf_cnj;
 
   real_t _x = {0.004};
   real_t _y = {0.006};

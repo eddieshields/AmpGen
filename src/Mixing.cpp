@@ -3,6 +3,20 @@
 
 using namespace AmpGen;
 
+Mixing::Mixing(const EventType& type, const AmpGen::MinuitParameterSet& mps)
+{
+  // Define PDF.
+  INFO( type );
+  pdf_dir = CoherentSum( type, mps );
+
+  // Define conj. PDF.
+  EventType eventType = type.conj();
+  INFO( typeCnj );
+  MinuitParameterSet mpsCnj( mps )
+  AddCPConjugate(mpsCnj);
+  pdf_cnj = CoherentSum( typeCnj, mps );
+}
+
 complex_t Mixing::gp(const real_t& t) const
 {
   return std::cosh( _z * ( t/2 ) );
@@ -20,20 +34,20 @@ real_t Mixing::prob_unnormalised( const Event& evt ) const
 
 void Mixing::prepare()
 {
-  _pdf_dir.prepare();
-  _pdf_cnj.prepare();
+  pdf_dir.prepare();
+  pdf_cnj.prepare();
 }
 
 void Mixing::reset( bool resetEvents )
 {
-  _pdf_dir.reset();
-  _pdf_cnj.reset();
+  pdf_dir.reset();
+  pdf_cnj.reset();
 }
 
 void Mixing::setEvents( EventList& list )
 {
-  _pdf_dir.setEvents( list );
-  _pdf_cnj.setEvents( list );
+  pdf_dir.setEvents( list );
+  pdf_cnj.setEvents( list );
 }
 
 
