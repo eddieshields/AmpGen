@@ -246,6 +246,14 @@ double MinuitParameterSet::operator()( const std::string& name )
   return m_keyAccess[name]->mean();
 }
 
+MinuitParameterSet* MinuitParameterSet::operator+( const MinuitParameterSet& mps )
+{
+  for ( size_t i = 0; i < mps.size(); i++ ) {
+    addToEnd( mps.at(i) );
+  }
+  return this;
+}
+
 MinuitParameterSet::~MinuitParameterSet()
 {
   for( auto& param : m_parameters ) if( param != nullptr ) delete param; 

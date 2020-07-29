@@ -56,6 +56,7 @@ namespace AmpGen
     MinuitParameter* operator[]( const size_t& key );
     MinuitParameter* find( const std::string& key ) const;
     double operator()( const std::string& name );
+    MinuitParameterSet* operator+( const MinuitParameterSet& mps );
   private:
     void tryParameter( const std::vector<std::string>& line );
     void tryAlias( const std::vector<std::string>& line );
