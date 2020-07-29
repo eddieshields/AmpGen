@@ -45,6 +45,7 @@ namespace AmpGen
   public:
     CoherentSum();
     CoherentSum( const EventType& type, const AmpGen::MinuitParameterSet& mps, const std::string& prefix = "" );
+    CoherentSum( const bool& mixing, const EventType& type, const AmpGen::MinuitParameterSet& mps, const std::string& prefix = "" );
     virtual ~CoherentSum() = default; 
 
     AmplitudeRules protoAmplitudes() { return m_rules; }
