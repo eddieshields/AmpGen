@@ -157,7 +157,7 @@ int main( int argc, char** argv )
     signalGenerator.fillEventList( pdf, accepted, nEvents );
   } 
   else if ( genType == generatorType::Mixing ) {
-    Mixing sig( eventType, MPS);
+    Mixing sig( eventType, MPS );
     PhaseSpace phsp(eventType,&rand);
     GenerateEvents( accepted, sig, phsp , nEvents, blockSize, &rand );
   }
